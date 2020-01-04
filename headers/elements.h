@@ -23,5 +23,5 @@ namespace game {
         void draw();
     };
 
-    void drawGame();
+    void drawGame(game::racket *r1,game::racket *r2);
 }

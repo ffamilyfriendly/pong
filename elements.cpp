@@ -1,4 +1,5 @@
 #include "headers/elements.h"
+#include <sstream>
 
 void game::racket::draw() {
     glBegin(GL_POLYGON);
@@ -30,7 +31,15 @@ void game::ball::draw() {
     glEnd();
 }
 
-void game::drawGame() {
+void RenderString(float x, float y, void *font, const unsigned char* str)
+{  
+  char *c;
+  glRasterPos2f(x, y);
+
+  glutBitmapString(font, str);
+}
+
+void game::drawGame(game::racket *r1,game::racket *r2) {
     int amountOfLines = 11;
     float length = (float)2 / amountOfLines;
     for(int i = 0; i < amountOfLines; i++) {
@@ -44,4 +53,9 @@ void game::drawGame() {
         glEnd();
         }
     }
+    std::stringstream ss;
+    ss << "score: " << r1->score << ":" << r2->score;
+    const unsigned char* t = reinterpret_cast<const unsigned char *>(ss.str().c_str());
+    RenderString(-1.0f,0.9f,GLUT_BITMAP_TIMES_ROMAN_24,t);
+
 }
